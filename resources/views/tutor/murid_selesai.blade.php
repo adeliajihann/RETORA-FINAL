@@ -1,0 +1,131 @@
+@extends('tutor.layout.main', ['title'=>'Daftar Murid Selesai'])
+
+@section('judul')
+    <div class="pagetitle">
+        <h1 >Daftar Murid (Selesai)</h1>
+    </div><br>
+@endsection
+
+@section('isi')
+
+    <section class="section dashboard">
+        <div class="row">
+            @if ($murid->isEmpty())
+            <div class="text-center" style="justify-content: center">
+                <img src="assets/img/not found.png" alt="" style="width: 30%">
+            </div>
+            @else 
+            @foreach ($murid as $data)
+                <div class="card mb-3" style="max-width: 450px;">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                        @if ($data->foto == null)
+                        <img src="assets/img/profile.png" style="width: 100%" style="max-height: 300px;" class="img-fluid rounded-start" alt="..."> 
+                        @else
+                        <img src="{{ asset ('murid/img/'.$data->foto) }}" style="width: 100%" style="max-height: 300px;" class="img-fluid rounded-start" alt="...">
+                        @endif
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $data->namaM }}</h5>
+                                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#detail-murid{{ $data->id }}">Lihat</button>
+                                <div class="modal fade" id="detail-murid{{ $data->id }}" tabindex="-1">
+                                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title"><b>Detail Profil Murid</b></h5>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-lg-4 col-md-4 label">Nama</div>
+                                                    <div class="col-lg-6 col-md-8">{{ $data->namaM }}</div>
+                                                </div> 
+                                                <div class="row">
+                                                    <div class="col-lg-4 col-md-4 label">Jenis Kelamin</div>
+                                                    <div class="col-lg-6 col-md-8">{{ $data->jk }}</div>
+                                                </div> 
+                                                <div class="row">
+                                                    <div class="col-lg-4 col-md-4 label">Riwayat Pendidikan</div>
+                                                    <div class="col-lg-6 col-md-8">{{ $data->r_pendidikan }}</div>
+                                                </div> 
+                                                <div class="row">
+                                                    <div class="col-lg-4 col-md-4 label">Alamat</div>
+                                                    <div class="col-lg-6 col-md-8">{{ $data->alamat }}</div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-4 col-md-4 label">No HP</div>
+                                                    <div class="col-lg-6 col-md-8">{{ $data->no_hp }}</div>
+                                                </div><br>
+                                                <div class="col-lg-4 col-md-4 label"><b>Detail Les Privat</b></div><br>
+                                                <div class="row">
+                                                    <div class="col-lg-4 col-md-4 label">Tanggal Awal Les</div>
+                                                    <div class="col-lg-6 col-md-8">{{ $data->tgl_awal }}</div>
+                                                </div> 
+                                                <div class="row">
+                                                    <div class="col-lg-4 col-md-4 label">Tanggal Akhir Les</div>
+                                                    <div class="col-lg-6 col-md-8">{{ $data->tgl_akhir }}</div>
+                                                </div> 
+                                                <div class="row">
+                                                    <div class="col-lg-4 col-md-4 label">Jenis Paket</div>
+                                                    <div class="col-lg-6 col-md-8">{{ $data->jenis_paket }}</div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-4 col-md-4 label">Kurikulum</div>
+                                                    <div class="col-lg-6 col-md-8">{{ $data->kurikulum }}</div>
+                                                </div> 
+                                                <div class="row">
+                                                    <div class="col-lg-4 col-md-4 label">Pendidikan</div>
+                                                    <div class="col-lg-6 col-md-8">{{ $data->pendidikan }}</div>
+                                                </div> 
+                                                <div class="row">
+                                                    <div class="col-lg-4 col-md-4 label">Mata Pelajaran</div>
+                                                    <div class="col-lg-6 col-md-8">{{ $data->mapel }}</div>
+                                                </div> 
+                                                <div class="row">
+                                                    <div class="col-lg-4 col-md-4 label">Kelas</div>
+                                                    <div class="col-lg-6 col-md-8">{{ $data->kelas }}</div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-4 col-md-4 label">Harga</div>
+                                                    <div class="col-lg-6 col-md-8">{{ $data->harga }}</div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-4 col-md-4 label">Jadwal</div>
+                                                    <div class="col-lg-6 col-md-8">{{ $data->jadwal }}</div>
+                                                </div><br>
+                                                @if($data->rating == null)
+                                                <div class="row">
+                                                    <div class="col-lg-4 col-md-4 label">Rating</div>
+                                                    <div class="col-lg-6 col-md-8"><i class="bi bi-star-fill text-warning"></i> (belum ada)</div>
+                                                </div>
+                                                @else
+                                                <div class="row">
+                                                    <div class="col-lg-4 col-md-4 label">Rating</div>
+                                                    <div class="col-lg-6 col-md-8"><i class="bi bi-star-fill text-warning"></i> {{ $data->rating }}</div>
+                                                </div>
+                                                @endif
+                                                @if($data->ulasan == null)
+                                                <div class="row">
+                                                    <div class="col-lg-4 col-md-4 label">Ulasan</div>
+                                                    <div class="col-lg-6 col-md-8">(belum ada)</div>
+                                                </div>
+                                                @else 
+                                                <div class="row">
+                                                    <div class="col-lg-4 col-md-4 label">Ulasan</div>
+                                                    <div class="col-lg-6 col-md-9">{{ $data->ulasan }}</div>
+                                                </div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>&nbsp;&nbsp;&nbsp;
+            @endforeach
+            @endif
+        </div>
+    </section>
+
+@endsection
